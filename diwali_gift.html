@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Diwali, Miss Allu ✨</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom right, #fff5d7, #ffe4b5);
+    color: #5a2800;
+    overflow-x: hidden;
+  }
+
+  h1, h2, p {
+    margin: 0.5em;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+  }
+
+  .diya-wrapper {
+    position: relative;
+    margin-top: 60px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .diya-wrapper:hover {
+    transform: scale(1.05);
+  }
+
+  .diya-base {
+    width: 160px;
+    height: 80px;
+    background: radial-gradient(circle at top, #b86b2a, #5a2800);
+    border-bottom-left-radius: 160px;
+    border-bottom-right-radius: 160px;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+
+  .oil {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 30px;
+    background: radial-gradient(circle at top, #ffcc66, #cc6600);
+    border-radius: 50%;
+  }
+
+  .flame {
+    position: absolute;
+    top: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 70px;
+    background: radial-gradient(ellipse at bottom, #ffea00, #ff7b00);
+    border-radius: 50% 50% 20% 20%;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  .glow {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255,200,0,0.4), transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  .show-flame {
+    opacity: 1;
+    animation: flicker 1.5s infinite alternate;
+  }
+
+  @keyframes flicker {
+    0% { transform: translateX(-50%) scaleY(1); opacity: 0.9; }
+    100% { transform: translateX(-50%) scaleY(1.05); opacity: 1; }
+  }
+
+  .message {
+    opacity: 0;
+    margin-top: 40px;
+    max-width: 600px;
+    font-size: 1.1em;
+    line-height: 1.6em;
+    transition: opacity 1.5s ease;
+  }
+
+  .show-message {
+    opacity: 1;
+  }
+
+  .sparkle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: gold;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkle 2s linear infinite;
+  }
+
+  @keyframes sparkle {
+    from { transform: translateY(0) scale(1); opacity: 1; }
+    to { transform: translateY(-100px) scale(0.5); opacity: 0; }
+  }
+
+  .end-text {
+    opacity: 0;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #ff7b00;
+    margin-top: 40px;
+    transition: opacity 2s ease;
+  }
+
+  .show-end {
+    opacity: 1;
+    text-shadow: 0 0 10px gold;
+  }
+
+  audio {
+    display: none;
+  }
+</style>
+</head>
+<body>
+<audio id="bg-music" src="MY_AUDIO2.mp3" loop></audio>
+
+<div class="container">
+  <h1>✨ Happy Diwali, Miss Allu ✨</h1>
+  <p>(click the diya below for a tiny surprise 💛)</p>
+
+  <div class="diya-wrapper" id="diya">
+    <div class="glow" id="glow"></div>
+    <div class="flame" id="flame"></div>
+    <div class="diya-base">
+      <div class="oil"></div>
+    </div>
+  </div>
+
+  <div class="message" id="message">
+    <h2>Hey Miss Allu,</h2>
+    <p>So… it’s Diwali. The festival of light, joy, and questionable sweets 😄</p>
+    <p>And you know what? You’ve kinda been my favorite part of the last two months — like that one diya that somehow shines brighter than the rest ✨</p>
+    <p>Thanks for being you — funny, chaotic (in the best way), and genuinely kind. You somehow manage to make my random days better just by existing. Basically, you’re the “sparkle” this website is trying to copy.</p>
+    <p>Hope this Diwali brings you smiles, warmth, and fewer annoying people in your DMs 😂</p>
+    <p>Stay awesome, Miss Allu. With appreciation, sarcasm, and extra light —<br><strong>— Mr. Allu (aka Sarthak Brar)</strong></p>
+  </div>
+
+  <div class="end-text" id="endText">🪔 Happy Diwali Once Again, Miss Allu! 🪔</div>
+</div>
+
+<script>
+const diya = document.getElementById('diya');
+const flame = document.getElementById('flame');
+const glow = document.getElementById('glow');
+const message = document.getElementById('message');
+const endText = document.getElementById('endText');
+const music = document.getElementById('bg-music');
+
+diya.addEventListener('click', () => {
+  flame.classList.add('show-flame');
+  glow.classList.add('show-flame');
+  setTimeout(() => message.classList.add('show-message'), 1500);
+  setTimeout(() => endText.classList.add('show-end'), 6000);
+  music.play().catch(() => { alert("Click play on the audio if it doesn't start automatically!"); });
+
+  for (let i = 0; i < 60; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+    sparkle.style.animationDelay = (Math.random() * 2) + 's';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 4000);
+  }
+});
+</script>
+</body>
+</html>
